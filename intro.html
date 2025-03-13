@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Efficient AI</title>
+    <meta name="author" content="Constantine Korikov">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@5" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/theme/white.css" id="theme">
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,700;1,300;1,700&display=swap');
+
+        .daisy img {
+            max-width: 100%;
+            max-height: 100%;
+            margin: 0%;
+        }
+
+        .daisy ul {
+            list-style-type: none;
+            display: inline-flex;
+            margin: 0%;
+        }
+
+        :root {
+            --red-color: rgb(192, 0, 35);
+            --blue-color: rgb(10, 92, 178);
+            --link-color: var(--blue-color);
+            --r-main-font: 'IBM Plex Mono', monospace;
+            --r-heading-font: 'IBM Plex Mono', monospace;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="reveal">
+
+        <div class="slides">
+
+            <section>
+                <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <img src="assets/huawei.svg" alt="logo"
+                            style="height: 50px; margin-right: 1rem; background: transparent;" class="demo-logo">
+                        <div style="border-left: 1px solid #000; height: 50px; margin-right: 1rem;"></div>
+                        <img src="assets/mipt.svg" alt="logo" style="height: 20px; background: transparent;"
+                            class="demo-logo">
+                    </div>
+
+                    <h3 class="text-xl font-bold mb-0" style="margin-bottom: 0;">Efficient AI</h3>
+                    <h5 class="text-sm text-gray-600 mt-0" style="margin-top: 0;">Вводная</h5>
+                </div>
+
+                <div class="flex items-center justify-center space-x-3" style="margin-top: 50px;">
+                    <div class="daisy avatar">
+                        <div class="w-5 rounded-full">
+                            <a href="https://www.linkedin.com/in/ckorikov/"><img
+                                    src="https://avatars.githubusercontent.com/u/10579090?v=4" /></a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center">
+                        <h6 class="text-sm"><a href="https://www.linkedin.com/in/ckorikov/">Константин Кориков</a></h6>
+                    </div>
+                </div>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Содержание</h5>
+                <ul>
+                    <li>Знакомство</li>
+                    <li>Сроки и отчётность</li>
+                    <li>Схема курса</li>
+                    <li>Проект</li>
+                    <li>Обзор</li>
+                </ul>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Знакомство</h5>
+                <div class="daisy">
+                    <ul class="list bg-base-100 rounded-box shadow-md">
+                        <li class="list-row">
+                            <div><img class="size-10 rounded-box"
+                                    src="https://avatars.githubusercontent.com/u/10579090?v=4" /></div>
+                            <div class="list-col-grow">
+                                <div>Константин Кориков</div>
+                                <div><a href="https://t.me/ckorikov">@ckorikov</a></div>
+                            </div>
+                        </li>
+
+                        <li class="list-row">
+                            <div><img class="size-10 rounded-box"
+                                    src="https://avatars.githubusercontent.com/u/91409566?s=96&v=4" /></div>
+                            <div class="list-col-grow">
+                                <div class="text-xs uppercase font-semibold opacity-60">Эльвира Гизатулина</div>
+                                <div><a href="https://t.me/Harper567">@Harper567</a></div>
+                            </div>
+                        </li>
+
+                        <li class="list-row">
+                            <div><img class="size-10 rounded-box"
+                                    src="https://raw.githubusercontent.com/GoshaSerbin/tex-style/refs/heads/main/24-06-18_STorunov_257-2.jpg" />
+                            </div>
+                            <div class="list-col-grow">
+                                <div class="text-xs uppercase font-semibold opacity-60">Георгий Сербин</div>
+                                <div><a href="https://t.me/GoshaSerbin">@GoshaSerbin</a></div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="text-xl font-bold mb-0">Сроки и отчётность</h5>
+
+                <div class="daisy overflow-x-auto text-sm">
+                    <ul class="steps">
+                        <li class="step"><span class="step-icon">📍</span>Вводная</li>
+                        <li class="step step-secondary">
+                            <span style="margin-left: 100%; width: 100%;">Блок 1</span>
+                        </li>
+                        <li class="step step-secondary"></li>
+                        <li class="step step-accent"></li>
+                        <li class="step step-accent">Блок 2</li>
+                        <li class="step step-accent"></li>
+                        <li class="step step-neutral"></li>
+                        <li class="step step-error"><span class="step-icon">🏝️</span>1 мая</li>
+                        <li class="step step-error"><span class="step-icon">🌹</span>9 мая</li>
+                        <li class="step step-neutral">Блок 3</li>
+                        <li class="step"><span class="step-icon">👨‍💻</span></li>
+                        <li class="step"><span class="step-icon">👨‍💻</span></li>
+                        <li class="step"><span class="step-icon">☠️</span>Экзамен</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Схема курса</h5>
+                <div class="daisy">
+                    <ul class="list bg-base-100 rounded-box shadow-md">
+                        <li class="list-row">
+                            <div class="text-4xl font-thin opacity-30 tabular-nums">01</div>
+                            <div class="list-col-grow">
+                                <div>Блок 1</div>
+                                <div class="text-xs uppercase font-semibold opacity-60">Матричное умножение — базовая
+                                    операция AI</div>
+
+                                <p class="list-col-wrap text-xs">
+                                <ul>
+                                    <li>Алгоритмические методы ускорения матричного умножения</li>
+                                    <li>Аппаратные методы ускорения матричного умножения</li>
+                                    <li>Умножение матриц специального вида</li>
+                                </ul>
+                                </p>
+
+                            </div>
+                            <button class="btn btn-square btn-ghost">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-matrix">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M8 16h.013" />
+                                    <path d="M12.01 16h.005" />
+                                    <path d="M16.015 16h.005" />
+                                    <path d="M16.015 12h.005" />
+                                    <path d="M8.01 12h.005" />
+                                    <path d="M12.01 12h.005" />
+                                    <path d="M16.02 8h.005" />
+                                    <path d="M8.015 8h.005" />
+                                    <path d="M12.015 8h.005" />
+                                    <path d="M7 4h-1a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h1" />
+                                    <path d="M17 4h1a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-1" />
+                                </svg>
+                            </button>
+                        </li>
+
+                        <li class="list-row">
+                            <div class="text-4xl font-thin opacity-30 tabular-nums">02</div>
+                            <div class="list-col-grow">
+                                <div>Блок 2</div>
+                                <div class="text-xs uppercase font-semibold opacity-60">Нейронная сеть — базовая модель
+                                    AI</div>
+
+                                <p class="list-col-wrap text-xs">
+                                <ul>
+                                    <li>Матричное умножение в нейронных сетях</li>
+                                    <li>Классические методы ускорения нейронных сетей</li>
+                                    <li>Эффективная тренировка нейронных сетей</li>
+                                </ul>
+                                </p>
+
+                            </div>
+                            <button class="btn btn-square btn-ghost">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-schema">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M5 2h5v4h-5z" />
+                                    <path d="M15 10h5v4h-5z" />
+                                    <path d="M5 18h5v4h-5z" />
+                                    <path d="M5 10h5v4h-5z" />
+                                    <path d="M10 12h5" />
+                                    <path d="M7.5 6v4" />
+                                    <path d="M7.5 14v4" />
+                                </svg>
+                            </button>
+                        </li>
+
+                        <li class="list-row">
+                            <div class="text-4xl font-thin opacity-30 tabular-nums">03</div>
+                            <div class="list-col-grow">
+                                <div>Блок 3</div>
+                                <div class="text-xs uppercase font-semibold opacity-60">Трансформер — базовая архитектра
+                                    AI</div>
+
+                                <p class="list-col-wrap text-xs">
+                                <ul>
+                                    <li>Архитектура трансформера</li>
+                                    <li>Оптимизация механизма внимания</li>
+                                    <li>Альтернативные архитектуры</li>
+                                </ul>
+                                </p>
+
+                            </div>
+                            <button class="btn btn-square btn-ghost">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-robot">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path
+                                        d="M6 4m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z" />
+                                    <path d="M12 2v2" />
+                                    <path d="M9 12v9" />
+                                    <path d="M15 12v9" />
+                                    <path d="M5 16l4 -2" />
+                                    <path d="M15 14l4 2" />
+                                    <path d="M9 18h6" />
+                                    <path d="M10 8v.01" />
+                                    <path d="M14 8v.01" />
+                                </svg>
+                            </button>
+                        </li>
+
+                    </ul>
+                </div>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Проект</h5>
+                <div class="daisy" style="display: flex; justify-content: center;">
+                    <div class="card w-96 bg-base-100 shadow-sm">
+                        <div class="card-body">
+                            <span class="badge badge-xs badge-warning">C++</span>
+                            <div class="flex justify-between">
+                                <h2 class="text-3xl font-bold">Нейронная сеть</h2>
+                            </div>
+                            <ul class="mt-6 flex flex-col gap-2 text-xs">
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="size-4 me-2 inline-block text-success" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span>Реализовать слой нейронной сети</span>
+                                </li>
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="size-4 me-2 inline-block text-success" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span>Оптимизировать реализацию</span>
+                                </li>
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="size-4 me-2 inline-block text-success" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span>Показать эффективность</span>
+                                </li>
+                                <li class="opacity-50">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="size-4 me-2 inline-block text-base-content/50" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span class="line-through">Построить нейронную сеть</span>
+                                </li>
+                                <li class="opacity-50">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="size-4 me-2 inline-block text-base-content/50" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span class="line-through">Внедрить реализованный слой</span>
+                                </li>
+                            </ul>
+                            <div class="mt-6">
+                                <button class="btn btn-primary btn-block" onclick="window.open('https://github.com', '_blank')">Начать</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section data-background-color="var(--r-main-color)">
+                <div style="color: white; text-align: center;">
+                    <span class="loading loading-ring loading-xl"></span>
+                    <br>
+                    <span>Перерыв</span>
+                </div>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Обзор</h5>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Вопрос №1</h5>
+                <p class="mt-2 font-bold" style="color: var(--red-color);">В вычислительной системе шина адреса состоит из 32 проводов. Какой максимальный объём памяти может быть адресован в данной системе?</p>
+                <ol>
+                    <li>2 Гб</li>
+                    <li>4 Гб</li>
+                    <li>16 Гб</li>
+                    <li>64 Гб</li>
+                </ol>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Вопрос №2</h5>
+                <p class="mt-2 font-bold" style="color: var(--red-color);">Для чего используется TLB в архитектурах процессоров?</p>
+                <ol>
+                    <li>Для управления питанием процессора</li>
+                    <li>Для ускорения доступа к памяти</li>
+                    <li>Для хранения данных о температуре процессора</li>
+                    <li>Для шифрования данных</li>
+                </ol>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Вопрос №3</h5>
+                <p class="mt-2 font-bold" style="color: var(--red-color);">Какую часть программы нужно распараллелить, чтобы получить ускорение в 90 раз на 100 процессорах?</p>
+                <ol>
+                    <li>$\approx99\%$ программы</li>
+                    <li>$\approx90\%$ программы</li>
+                    <li>$\approx80\%$ программы</li>
+                    <li>$\approx50\%$ программы</li>
+                </ol>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Вопрос №4</h5>
+                <p class="mt-2 font-bold" style="color: var(--red-color);">Какое значение вернёт sizeof?</p>
+                <pre>
+                    int* ptr;
+                    std::cout << "Size of int*: " << sizeof(ptr) << " bytes" << std::endl;
+                </pre>
+                <ol>
+                    <li>1</li>
+                    <li>2</li>
+                    <li>4</li>
+                    <li>8</li>
+                </ol>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Вопрос №5</h5>
+                <p class="mt-2 font-bold" style="color: var(--red-color);">Какая сложность лучшего алгоритма, который может найти пересечение двух отсортированных списков длин $n$ и $m$?</p>
+                <ol>
+                    <li>$O(n^2)$</li>
+                    <li>$O(n \log(n))$</li>
+                    <li>$O(n+m)$</li>
+                    <li>$O(n m)$</li>
+                </ol>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Вопрос №6</h5>
+                <p class="mt-2 font-bold" style="color: var(--red-color);">Какая сложность матричного умножения матриц $A_{mn}$ и $B_{nk}$?</p>
+                <ol>
+                    <li>$O(m+n+k)$</li>
+                    <li>$O(mnk)$</li>
+                    <li>$O(mn^2k)$</li>
+                    <li>$O(n^3)$</li>
+                </ol>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Вопрос №7</h5>
+                <p class="mt-2 font-bold" style="color: var(--red-color);">Какое преобразование выполняет двухслойный персептрон?</p>
+                <ol>
+                    <li>$y=f_2(W_2 f_1(W_1 x))$</li>
+                    <li>$y=W_2 W_1 x$</li>
+                    <li>$y=\int_{0}^{\infty} f(x) e^{-i x \omega} \mathrm{d}x$</li>
+                    <li>$y=f_1(W_1 x + b_1)$</li>
+                </ol>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Вопрос №8</h5>
+                <p class="mt-2 font-bold" style="color: var(--red-color);">Как выглядит матрица поворота в 2D?</p>
+            </section>
+
+            <section>
+                <div style="text-align: center; margin-top: 50px;">
+                    <h6 class="text-sm">
+                        <a href="mailto:constantine.korikov@gmail.com"
+                            style="color: var(--link-color); text-decoration: none;">
+                            constantine.korikov@gmail.com
+                        </a>
+                    </h6>
+                </div>
+            </section>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reveal.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/math/math.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/highlight/highlight.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/search/search.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/zoom/zoom.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script>
+        Reveal.initialize({
+            history: true,
+            hash: true,
+            transition: 'linear',
+
+            math: {
+                config: 'TeX-AMS_HTML-full',
+                TeX: {
+                    Macros: {
+                        R: '\\mathbb{R}',
+                        set: ['\\left\\{#1 \\; ; \\; #2\\right\\}', 2]
+                    }
+                }
+            },
+
+            plugins: [RevealMath, RevealMarkdown, RevealHighlight, RevealSearch, RevealZoom]
+        });
+    </script>
+
+</body>
+
+</html>
