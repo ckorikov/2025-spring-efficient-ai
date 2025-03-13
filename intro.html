@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@5" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/theme/white.css" id="theme">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/highlight/monokai.css" id="theme">
 
 
     <style>
@@ -373,10 +374,10 @@
             <section class="text-xl">
                 <h5 class="font-bold mb-0">Вопрос №4</h5>
                 <p class="mt-2 font-bold" style="color: var(--red-color);">Какое значение вернёт sizeof?</p>
-                <pre>
+                <pre><code class="language-cpp">
                     int* ptr;
                     std::cout << "Size of int*: " << sizeof(ptr) << " bytes" << std::endl;
-                </pre>
+                </code></pre>
                 <ol>
                     <li>1</li>
                     <li>2</li>
