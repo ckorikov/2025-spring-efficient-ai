@@ -8,6 +8,7 @@ Reveal.initialize({
         TeX: {
             Macros: {
                 R: '\\mathbb{R}',
+                mat: '\\mathbf',
                 set: ['\\left\\{#1 \\; ; \\; #2\\right\\}', 2]
             }
         }
