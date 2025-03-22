@@ -1,0 +1,19 @@
+.daisy img {
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0%;
+}
+
+.daisy ul {
+    list-style-type: none;
+    display: inline-flex;
+    margin: 0%;
+}
+
+:root {
+    --red-color: rgb(192, 0, 35);
+    --blue-color: rgb(10, 92, 178);
+    --link-color: var(--blue-color);
+    --r-main-font: 'IBM Plex Mono', monospace;
+    --r-heading-font: 'IBM Plex Mono', monospace;
+}

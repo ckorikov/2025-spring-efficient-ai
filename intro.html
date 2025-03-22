@@ -16,28 +16,7 @@
     <link rel="stylesheet" href="sys/white.css">
     <link rel="stylesheet" href="sys/monokai.css">
     <link rel="stylesheet" href="sys/IBM+Plex+Mono.css">
-
-    <style>
-        .daisy img {
-            max-width: 100%;
-            max-height: 100%;
-            margin: 0%;
-        }
-
-        .daisy ul {
-            list-style-type: none;
-            display: inline-flex;
-            margin: 0%;
-        }
-
-        :root {
-            --red-color: rgb(192, 0, 35);
-            --blue-color: rgb(10, 92, 178);
-            --link-color: var(--blue-color);
-            --r-main-font: 'IBM Plex Mono', monospace;
-            --r-heading-font: 'IBM Plex Mono', monospace;
-        }
-    </style>
+    <link rel="stylesheet" href="sys/main.css">
 
 </head>
 
@@ -443,25 +422,7 @@
     <script src="sys/plugin/search.js"></script>
     <script src="sys/plugin/zoom.js"></script>
     <script src="sys/browser@4.js"></script>
-    <script>
-        Reveal.initialize({
-            history: true,
-            hash: true,
-            transition: 'linear',
-
-            math: {
-                config: 'TeX-AMS_HTML-full',
-                TeX: {
-                    Macros: {
-                        R: '\\mathbb{R}',
-                        set: ['\\left\\{#1 \\; ; \\; #2\\right\\}', 2]
-                    }
-                }
-            },
-
-            plugins: [RevealMath, RevealMarkdown, RevealHighlight, RevealSearch, RevealZoom]
-        });
-    </script>
+    <script src="sys/main.js"></script>
 
 </body>
 
