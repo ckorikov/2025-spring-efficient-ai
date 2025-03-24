@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Efficient AI</title>
+    <meta name="author" content="Constantine Korikov">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="stylesheet" href="sys/daisyui@5.css">
+    <link rel="stylesheet" href="sys/reveal.min.css">
+    <link rel="stylesheet" href="sys/white.css">
+    <link rel="stylesheet" href="sys/monokai.css">
+    <link rel="stylesheet" href="sys/IBM+Plex+Mono.css">
+    <link rel="stylesheet" href="sys/main.css">
+
+</head>
+
+<body>
+
+    <div class="reveal">
+
+        <div class="slides">
+
+            <section>
+                <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <img src="assets/huawei.svg" alt="logo"
+                            style="height: 50px; margin-right: 1rem; background: transparent;" class="demo-logo">
+                        <div style="border-left: 1px solid #000; height: 50px; margin-right: 1rem;"></div>
+                        <img src="assets/mipt.svg" alt="logo" style="height: 20px; background: transparent;"
+                            class="demo-logo">
+                    </div>
+
+                    <h3 class="text-xl font-bold mb-0" style="margin-bottom: 0;">Efficient AI</h3>
+                    <h5 class="text-sm text-gray-600 mt-0" style="margin-top: 0;">Блок 1. Матричное умножение.
+                        Алгоритмические методы ускорения</h5>
+                </div>
+
+                <div class="flex items-center justify-center space-x-3" style="margin-top: 50px;">
+                    <div class="daisy avatar">
+                        <div class="w-5 rounded-full">
+                            <a href="https://www.linkedin.com/in/ckorikov/"><img
+                                    src="https://avatars.githubusercontent.com/u/10579090?v=4" /></a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center">
+                        <h6 class="text-sm"><a href="https://www.linkedin.com/in/ckorikov/">Константин Кориков</a></h6>
+                    </div>
+                </div>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="text-xl font-bold mb-0">Где мы?</h5>
+
+                <div class="daisy overflow-x-auto text-sm">
+                    <ul class="steps">
+                        <li class="step"><span class="step-icon">📍</span>Вводная</li>
+                        <li class="step step-secondary"><span class="step-icon">🫠</span></li>
+                        <li class="step step-secondary">
+                            <span style="position: relative; left: -50%;">Блок 1</span>
+                        </li>
+                        <li class="step step-accent"></li>
+                        <li class="step step-accent">Блок 2</li>
+                        <li class="step step-accent"></li>
+                        <li class="step step-neutral"></li>
+                        <li class="step step-error"><span class="step-icon">🏝️</span>1 мая</li>
+                        <li class="step step-error"><span class="step-icon">🌹</span>9 мая</li>
+                        <li class="step step-neutral">Блок 3</li>
+                        <li class="step"><span class="step-icon">👨‍💻</span></li>
+                        <li class="step"><span class="step-icon">👨‍💻</span></li>
+                        <li class="step"><span class="step-icon">☠️</span>Экзамен</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Содержание</h5>
+                <ul>
+                    <li>Наивное матричное умножение</li>
+                    <li>Улучшенное матричное умножение</li>
+                    <li>Можно ли улучшить ещё?</li>
+                </ul>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Матрица</h5>
+                <div class="flex justify-center">
+                    <canvas id="rough-matrix-intro" width="250" height="250"></canvas>
+                </div>
+                <p>Это матрица?</p>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Матрица</h5>
+                <div class="flex justify-center">
+                    <canvas id="rough-matrix-numbers" width="250" height="250"></canvas>
+                </div>
+                <p>Прямоугольная таблица чисел</p>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Действия над матрицами</h5>
+                <ul>
+                    <li>Сложение</li>
+                    <li>Умножение на число</li>
+                    <li>Матричное умножение</li>
+                </ul>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Матричное умножение</h5>
+                <p>
+                    $$
+                    C_{ij} = \sum_{k=1}^{n} A_{ik} \cdot B_{kj}
+                    $$
+                </p>
+                <div class="flex justify-center items-center">
+                    <canvas id="rough-matmul-diagram" width="500" height="200"></canvas>
+                </div>
+            </section>
+
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Наивный алгоритм</h5>
+                <pre style="width: 50%;">
+<code class="language-python" data-line-numbers>
+for i in range(n):
+    for j in range(m):
+        for k in range(p):
+            C[i][j] += A[i][k] * B[k][j]
+
+</code></pre>
+            </section>
+
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Умножение блоками</h5>
+                <p>
+                    $$
+                    \begin{pmatrix}
+                    \color{red}{c_{11}} & \color{red}{c_{12}} & \color{blue}{c_{13}} & \color{blue}{c_{14}} \\
+                    \color{red}{c_{21}} & \color{red}{c_{22}} & \color{blue}{c_{23}} & \color{blue}{c_{24}} \\
+                    \color{green}{c_{31}} & \color{green}{c_{32}} & \color{purple}{c_{33}} & \color{purple}{c_{34}} \\
+                    \color{green}{c_{41}} & \color{green}{c_{42}} & \color{purple}{c_{43}} & \color{purple}{c_{44}}
+                    \end{pmatrix} =
+                    \begin{pmatrix}
+                    \color{red}{a_{11}} & \color{red}{a_{12}} & \color{blue}{a_{13}} & \color{blue}{a_{14}} \\
+                    \color{red}{a_{21}} & \color{red}{a_{22}} & \color{blue}{a_{23}} & \color{blue}{a_{24}} \\
+                    \color{green}{a_{31}} & \color{green}{a_{32}} & \color{purple}{a_{33}} & \color{purple}{a_{34}} \\
+                    \color{green}{a_{41}} & \color{green}{a_{42}} & \color{purple}{a_{43}} & \color{purple}{a_{44}}
+                    \end{pmatrix}
+                    \begin{pmatrix}
+                    \color{red}{b_{11}} & \color{red}{b_{12}} & \color{blue}{b_{13}} & \color{blue}{b_{14}} \\
+                    \color{red}{b_{21}} & \color{red}{b_{22}} & \color{blue}{b_{23}} & \color{blue}{b_{24}} \\
+                    \color{green}{b_{31}} & \color{green}{b_{32}} & \color{purple}{b_{33}} & \color{purple}{b_{34}} \\
+                    \color{green}{b_{41}} & \color{green}{b_{42}} & \color{purple}{b_{43}} & \color{purple}{b_{44}}
+                    \end{pmatrix}
+                    $$
+                </p>
+                <p>Оценить сложность можно основной теоремой о рекуррентных соотношениях</p>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Трюки</h5>
+                <div class="flex justify-center">
+                    <img src="assets/matmul.png" class="mx-auto block">
+                </div>
+                <div><a class="text-sm"
+                        href="https://www.quantamagazine.org/new-breakthrough-brings-matrix-multiplication-closer-to-ideal-20240307/">New
+                        Breakthrough Brings Matrix Multiplication Closer to Ideal. Merrill Sherman/Quanta Magazine</a>
+                </div>
+            </section>
+
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Что заметил Виноград?</h5>
+                <p class="text-sm">Winograd, 1967</p>
+                <p>
+                    $$
+                    a^T b = \sum_{i=1}^{n/2} (a_{2i-1} + b_{2i})(a_{2i} + b_{2i-1}) - \sum_{i=1}^{n/2} a_{2i-1}a_{2i} -
+                    \sum_{i=1}^{n/2} b_{2i-1}b_{2i}
+                    $$
+                </p>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Что заметил Штрассен?</h5>
+                <p class="text-sm">Strassen, 1969</p>
+                <p>
+                    $$
+                    \begin{pmatrix} C_{11} & C_{12} \\ C_{21} & C_{22} \end{pmatrix} = \begin{pmatrix} A_{11} & A_{12}
+                    \\ A_{21} & A_{22} \end{pmatrix} \begin{pmatrix} B_{11} & B_{12} \\ B_{21} & B_{22} \end{pmatrix}
+                    $$
+                </p>
+                <div style="display: flex; justify-content: space-between;" class="text-sm">
+                    <div style="width: 48%;">
+                        <p>
+                            $$
+                            P_1 = (A_{11} + A_{22})(B_{11} + B_{22})
+                            $$
+                            $$
+                            P_2 = (A_{21} + A_{22})B_{11}
+                            $$
+                            $$
+                            P_3 = A_{11}(B_{12} - B_{22})
+                            $$
+                            $$
+                            P_4 = A_{22}(B_{21} - B_{11})
+                            $$
+                            $$
+                            P_5 = (A_{11} + A_{12})B_{22}
+                            $$
+                            $$
+                            P_6 = (A_{21} - A_{11})(B_{11} + B_{12})
+                            $$
+                            $$
+                            P_7 = (A_{12} - A_{22})(B_{21} + B_{22})
+                            $$
+                        </p>
+                    </div>
+                    <div style="width: 48%;">
+                        <p>
+                            $$
+                            C_{11} = P_1 + P_4 - P_5 + P_7
+                            $$
+                            $$
+                            C_{12} = P_3 + P_5
+                            $$
+                            $$
+                            C_{21} = P_2 + P_4
+                            $$
+                            $$
+                            C_{22} = P_1 + P_3 - P_2 + P_6
+                            $$
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Что нашли в DeepMind?</h5>
+                <div class="flex justify-center">
+                    <img src="assets/deepmind.png" class="w-1/2 mx-auto block">
+                </div>
+                <div><a class="text-sm" href="https://www.nature.com/articles/s41586-022-05172-4">Сравнение сложности
+                        ранее известных алгоритмов умножения матриц с алгоритмами, открытыми DeepMind</a></div>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Что нашли в DeepMind?</h5>
+                <p>
+                    $$
+                    C_{ij} = \sum_k T_{ijk} A_{ik} B_{kj}
+                    $$
+                </p>
+            </section>
+
+            <section data-background-color="var(--r-main-color)">
+                <div style="color: white; text-align: center;">
+                    <span class="loading loading-ring loading-xl"></span>
+                    <br>
+                    <span>Перерыв</span>
+                </div>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Вопрос</h5>
+                <p class="mt-2 font-bold" style="color: var(--red-color);">Как проверить правильность матричного
+                    умножения?</p>
+                <p>
+                    $$
+                    C \overset{?}{=} AB
+                    $$
+                </p>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Алгоритм Фрейвальдса</h5>
+                <ul>
+                    <li>Есть 3 матрицы $\mat{A}$, $\mat{B}$, $\mat{C}$</li>
+                    <li>Выберем случайный вектор $x$ из 0 и 1</li>
+                    <li>Сравним $\mat{A}(\mat{B}x)$ и $\mat{C}x$</li>
+                    <li>Повторить $k$ раз</li>
+                </ul>
+
+                <div role="alert" class="alert alert-info alert-outline w-1/2 mx-auto text-center"
+                    style="margin-top: 5%;">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        class="h-6 w-6 shrink-0 stroke-current">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span>Если $\mat{A}\mat{B} \neq \mat{C}$, то вероятность ошибки $\le 2^{-k}$</span>
+                </div>
+
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Вопрос</h5>
+                <p class="mt-2 font-bold" style="color: var(--red-color);">Как посчитать матричное умножение
+                    приближённо, но быстрее?</p>
+                <p>
+                    $$
+                    C \approx AB
+                    $$
+                </p>
+            </section>
+
+            <section>
+                <div style="text-align: center; margin-top: 50px;">
+                    <h6 class="text-sm">
+                        <a href="mailto:constantine.korikov@gmail.com"
+                            style="color: var(--link-color); text-decoration: none;">
+                            constantine.korikov@gmail.com
+                        </a>
+                    </h6>
+                </div>
+            </section>
+
+        </div>
+
+    </div>
+
+    <script src="sys/reveal.js"></script>
+    <script src="sys/plugin/math.js"></script>
+    <script src="sys/plugin/markdown.js"></script>
+    <script src="sys/plugin/highlight.js"></script>
+    <script src="sys/plugin/search.js"></script>
+    <script src="sys/plugin/zoom.js"></script>
+    <script src="sys/browser@4.js"></script>
+    <script src="sys/rough.min.js"></script>
+    <script src="sys/main.js"></script>
+
+    <script>
+        function renderMatrixIntro() {
+            const canvas = document.getElementById('rough-matrix-intro');
+            const rc = rough.canvas(canvas);
+            const ctx = canvas.getContext('2d');
+
+            const matrix = [
+                ['☠️', '💃'],
+                ['😅', '👨‍💻']
+            ];
+
+            drawMatrix(matrix, rc, ctx, 70);
+        }
+
+        function renderMatrixNumbers() {
+            const canvas = document.getElementById('rough-matrix-numbers');
+            const rc = rough.canvas(canvas);
+            const ctx = canvas.getContext('2d');
+
+            const matrix = [
+                [1, 2],
+                [3, 4]
+            ];
+
+            drawMatrix(matrix, rc, ctx, 70);
+        }
+
+        function renderMatMulScheme() {
+            const canvas = document.getElementById('rough-matmul-diagram');
+            const rc = rough.canvas(canvas);
+            const ctx = canvas.getContext('2d');
+
+            // Draw matrices in new order: C = A x B
+            rc.rectangle(350, 50, 100, 100, { stroke: 'black', strokeWidth: 2 });
+            rc.rectangle(50, 50, 100, 100, { stroke: 'black', strokeWidth: 2 });
+            rc.rectangle(200, 50, 100, 100, { stroke: 'black', strokeWidth: 2 });
+
+            // Labels
+            ctx.font = '20px IBM Plex Mono';
+            ctx.textAlign = 'center';
+            ctx.fillText('B', 400, 40);
+            ctx.fillText('C', 100, 40);
+            ctx.fillText('A', 250, 40);
+            ctx.fillText('=', 175, 100);
+            ctx.fillText('×', 325, 100);
+
+            // Highlight row and column
+            // Highlight row from A and column from B
+            ctx.fillStyle = 'rgba(255, 0, 0, 0.2)';
+            ctx.fillRect(200, 75, 100, 20); // Row in A
+            ctx.fillStyle = 'rgba(0, 0, 255, 0.2)';
+            ctx.fillRect(375, 50, 20, 100); // Column in B
+
+            // Highlight result cell in C
+            ctx.fillStyle = 'rgba(128, 0, 128, 0.3)';
+            ctx.fillRect(75, 75, 20, 20);
+        }
+
+        Reveal.on('ready', function () {
+            renderMatrixIntro();
+            renderMatrixNumbers();
+            renderMatMulScheme();
+        });
+    </script>
+</body>
+
+</html>
