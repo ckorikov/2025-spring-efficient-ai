@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="sys/daisyui@5.css">
     <link rel="stylesheet" href="sys/reveal.min.css">
     <link rel="stylesheet" href="sys/white.css">
-    <link rel="stylesheet" href="plugin/highlight/atom-one-dark.css">
+    <link rel="stylesheet" href="sys/monokai.css">
     <link rel="stylesheet" href="sys/IBM+Plex+Mono.css">
     <link rel="stylesheet" href="sys/main.css">
 
@@ -103,7 +103,7 @@
                 <h3>Почему C++?</h3>
                 <div style="display: flex;">
                     <div style="width: 50%; padding: 10px;">
-                        <code>pure python</code>
+                        <code>Чистый Python</code>
                         <pre><code data-trim data-noescape class="language-python">
                             for i in range(a.shape[0]):
                                 for j in range(b.shape[1]):
@@ -113,7 +113,7 @@
                     </div>
 
                     <div style="width: 50%; padding: 10px;">
-                        <code>numpy</code>
+                        <code>Python + NumPy</code>
                         <pre><code data-trim data-noescape class="language-python">
                         import numpy as np
 
@@ -255,7 +255,7 @@
                 <!-- <div class="fragment">
                     <h3>Вопросы</h3>
                     <ul class>
-                        <li>Есть ли разница --- перемножать $A \cdot B$ или $A \cdot B^T$?</li>
+                        <li>Есть ли разница --- перемножать $\mat{A} \mat{B}$ или $\mat{A} \mat{B}^T$?</li>
                         <li><strong>-fsanitize=address</strong> — умеет ловить использование освобожденной памяти,
                             переполнения и утечки.
                         </li>
@@ -303,7 +303,7 @@ void gemm_v0(int M, int N, int K, const float * A, const float * B, float * C)
     }
 }
                 </code></pre>
-                <p>Есть ли разница — перемножать $A \cdot B$ или $A \cdot B^T$?</p>
+                <p>Есть ли разница перемножать $\mat{A} \mat{B}$ или $\mat{A} \mat{B}^T$?</p>
                 <div class="fragment">
                     <pre><code data-trim data-noescape class="cpp">
                             void gemm_v1(int M, int N, int K, const float * A, const float * B, float * C)
@@ -660,10 +660,6 @@ __global__ void matrixMult(const BASE_TYPE *A, const BASE_TYPE *B, BASE_TYPE *C,
                         </ul>
                     </div>
                 </div>
-            </section>
-
-            <section class="text-xl">
-                <h2>Спасибо за внимание!</h2>
             </section>
 
             <section>
