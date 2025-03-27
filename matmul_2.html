@@ -123,7 +123,7 @@
                     </div>
                 </div>
                 <div class="fragment">
-                    <img src="assets/python-performance.png" alt="График сравнения скорости" style="width: 26%;">
+                    <img src="assets/lec_2/python-performance.png" alt="График сравнения скорости" style="width: 26%;">
                 </div>
 
                 <div class="fragment" style="text-align: left">
@@ -213,7 +213,7 @@
                     </div>
                 </div>
                 <div class="fragment">
-                    <img src="assets/cpu-cache.png" alt="График сравнения скорости"
+                    <img src="assets/lec_2/cpu-cache.png" alt="График сравнения скорости"
                         style="width: 55%;display: block; margin: auto;">
                 </div>
                 <div class="fragment" style="text-align: left">
@@ -340,7 +340,7 @@ void gemm_v0(int M, int N, int K, const float * A, const float * B, float * C)
                     </ul>
                 </ul>
                 <div>
-                    <img src="assets/fmadd.png" alt="График сравнения скорости"
+                    <img src="assets/lec_2/fmadd.png" alt="График сравнения скорости"
                         style="width: 30%;display: block; margin: auto;">
                 </div>
                 <br>
@@ -354,8 +354,8 @@ void gemm_v0(int M, int N, int K, const float * A, const float * B, float * C)
 
             <section class="text-xl">
                 <h3>Увеличение числа чтений из регистров</h3>
-                <img src="assets/matmul_kernel.png" style="width: 45vw; display: block; margin: auto;">
-                <img src="assets/kernel_rank.png" style="width: 45vw; display: block; margin: auto;">
+                <img src="assets/lec_2/matmul_kernel.png" style="width: 45vw; display: block; margin: auto;">
+                <img src="assets/lec_2/kernel_rank.png" style="width: 45vw; display: block; margin: auto;">
                 <br>
                 Количество чтений уменьшилось с $2 K m_R n_R$ до $(m_R+n_R)K+m_Rn_R$
             </section>
@@ -424,7 +424,7 @@ void gemm_v0(int M, int N, int K, const float * A, const float * B, float * C)
             <section class="text-xl">
                 <div>
                     <h3>Concurrency vs. Parallelism</h3>
-                    <img src="assets/concurrency.png" style="width: 30vw; display: block; margin: auto;">
+                    <img src="assets/lec_2/concurrency.png" style="width: 30vw; display: block; margin: auto;">
                     <div align="left">
                         <p><b>Конкурентность:</b></p>
                         <p>
@@ -495,7 +495,7 @@ void gemm_v0(int M, int N, int K, const float * A, const float * B, float * C)
                 </ul>
                 <br>
                 <br>
-                <img src="assets/gpu-cpu-difference.png" style="width: 50vw; display: block; margin: auto;">
+                <img src="assets/lec_2/gpu-cpu-difference.png" style="width: 50vw; display: block; margin: auto;">
                 24 ядра &lt; 10000 ядер?
             </section>
             <section class="text-xl">
@@ -507,7 +507,7 @@ void gemm_v0(int M, int N, int K, const float * A, const float * B, float * C)
                 </ul>
                 <br>
                 <br>
-                <img src="assets/grid-of-thread-blocks.png" style="width: 50vw; display: block; margin: auto;">
+                <img src="assets/lec_2/grid-of-thread-blocks.png" style="width: 50vw; display: block; margin: auto;">
             </section>
             <section class="text-xl">
                 <h3>Интерфейс</h3>
@@ -565,7 +565,7 @@ cudaFree( dev_c );
 
             <section class="text-xl">
                 <h3>Архитектура GPU</h3>
-                <img src="assets/gpu-insight.png" style="width: 42vw; display: block; margin: auto;">
+                <img src="assets/lec_2/gpu-insight.png" style="width: 42vw; display: block; margin: auto;">
                 <ul>
                     <li>Регистры и разделяемая память - быстрые.</li>
                     <li>Глобальная, константная, текстурная - медленные</li>
@@ -610,7 +610,7 @@ __global__ void matrixMult(const BASE_TYPE *A, const BASE_TYPE *B, BASE_TYPE *C,
                 </ul>
                 <br>
                 <br>
-                <img src="assets/tiled-mm.jpg" style="width: 15vw; display: block; margin: auto;">
+                <img src="assets/lec_2/tiled-mm.jpg" style="width: 15vw; display: block; margin: auto;">
                 <br>
                 <br>
                 $2N$ -> $2N/$blocksize
@@ -632,7 +632,7 @@ __global__ void matrixMult(const BASE_TYPE *A, const BASE_TYPE *B, BASE_TYPE *C,
 
             <section class="text-xl">
                 <h3>Гетерогенные системы</h3>
-                <img src="assets/heterogeneity.png" style="width: 50vw; display: block; margin: auto;">
+                <img src="assets/lec_2/heterogeneity.png" style="width: 50vw; display: block; margin: auto;">
                 <br>
                 <br>
                 <p>Пример State-of-the-art комбинации CPU/GPU в LLM: Powerinfer</p>
