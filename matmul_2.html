@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="sys/daisyui@5.css">
     <link rel="stylesheet" href="sys/reveal.min.css">
     <link rel="stylesheet" href="sys/white.css">
-    <link rel="stylesheet" href="sys/monokai.css">
+    <link rel="stylesheet" href="plugin/highlight/atom-one-dark.css">
     <link rel="stylesheet" href="sys/IBM+Plex+Mono.css">
     <link rel="stylesheet" href="sys/main.css">
 
@@ -37,7 +37,8 @@
                     </div>
 
                     <h3 class="text-xl font-bold mb-0" style="margin-bottom: 0;">Efficient AI</h3>
-                    <h5 class="text-sm text-gray-600 mt-0" style="margin-top: 0;">Блок 1. Матричное умножение. Аппаратные методы ускорения</h5>
+                    <h5 class="text-sm text-gray-600 mt-0" style="margin-top: 0;">Блок 1. Матричное умножение.
+                        Аппаратные методы ускорения</h5>
                 </div>
 
                 <div class="flex items-center justify-center space-x-3" style="margin-top: 50px;">
@@ -91,9 +92,297 @@
             <section class="text-xl">
                 <h5 class="font-bold mb-0">Содержание</h5>
                 <ul>
+                    <li>Немного C++</li>
                     <li>Вычисления на CPU</li>
+                    <li>Распараллеливание</li>
                     <li>Вычисления на GPU</li>
                 </ul>
+            </section>
+
+            <section class="text-xl">
+                <h3>Почему C++?</h3>
+                <div style="display: flex;">
+                    <div style="width: 50%; padding: 10px;">
+                        <code>pure python</code>
+                        <pre><code data-trim data-noescape class="language-python">
+                            for i in range(a.shape[0]):
+                                for j in range(b.shape[1]):
+                                    for k in range(a.shape[1]):
+                                        c[i,j] += a[i,k]*b[k,j]
+                        </code></pre>
+                    </div>
+
+                    <div style="width: 50%; padding: 10px;">
+                        <code>numpy</code>
+                        <pre><code data-trim data-noescape class="language-python">
+                        import numpy as np
+
+
+                        c = np.matmul(a,b)
+                        </code></pre>
+                    </div>
+                </div>
+                <div class="fragment">
+                    <img src="assets/python-performance.png" alt="График сравнения скорости" style="width: 26%;">
+                </div>
+
+                <div class="fragment" style="text-align: left">
+                    <ul>
+                        <li>Python — интерпретируемый язык</li>
+                        <li>C/C++ — компилируемые языки</li>
+                        <li>numpy написана на C (C extension)</li>
+                    </ul>
+                    <p>
+                        C++ широко применяется в БД, движках, ИИ...
+                    </p>
+                </div>
+
+            </section>
+            <section class="text-xl">
+                <h3>Этапы сборки на C++</h3>
+                <div class="stages">
+                    <span>Препроцессинг</span> ➝
+                    <span>Компиляция</span> ➝
+                    <span>Ассемблирование</span> ➝
+                    <span>Компоновка</span>
+                </div>
+                <br>
+                <div class="fragment">
+                    <h3>Оптимизация</h3>
+                    <ul>
+                        <li><strong>-O0</strong> — дефолт, без оптимизации.</li>
+                        <li><strong>-O1</strong> — пытается уменьшить размер кода и ускорить работу программы за счет
+                            увеличения времени компиляции.</li>
+                        <li><strong>-O2</strong> — все поддерживаемые оптимизации, которые не включают уменьшение
+                            времени исполнения за счет увеличения длины кода.</li>
+                        <li><strong>-O3</strong> — оптимизирует еще немного за счет увеличения длины кода.</li>
+                        <li><strong>-march=native</strong> — для gcc>4.3 специфичные архитектурные оптимизации.</li>
+                    </ul>
+                </div>
+                <br>
+                <div class="fragment">
+                    <h3>Предупреждения</h3>
+                    <ul>
+                        <li><strong>-Wall</strong> — вывод сообщений о всех предупреждениях или ошибках,
+                            возникающих во
+                            время
+                            компиляции программы.</li>
+                        <li><strong>-Werror</strong> — делает предупреждения ошибками. ☠️</li>
+                    </ul>
+                </div>
+                <br>
+                <div class="fragment">
+                    <h3>Отладка</h3>
+                    <ul class>
+                        <li><strong>-g</strong> — генерация и сохранение отладочной информации.</li>
+                        <li><strong>-fsanitize=address</strong> — умеет ловить использование освобожденной памяти,
+                            переполнения и утечки.
+                        </li>
+                    </ul>
+                </div>
+
+            </section>
+            <section class="text-xl">
+                <h3>Сегменты памяти</h3>
+                <ul class="stages">
+                    <li><strong>text</strong> — хранятся машинные инструкции</li>
+                    <li><strong>data</strong> — сегмент инициализированных данных</li>
+                    <li><strong>stack</strong> — быстрая но маленькая память</li>
+                    <li><strong>heap</strong> — динамическая память</li>
+                </ul>
+                <p><code>cat /procs/self/maps</code> — посмотреть фрагменты памяти процесса self.</p>
+            </section>
+
+            <section class="text-xl">
+                <h3>Хранение матриц в памяти</h3>
+                <div style="display: flex;">
+                    <div style="width: 50%; padding: 10px;">
+                        непоследовательная аллокация памяти
+                        <pre><code data-trim data-noescape class="cpp">
+                            float** A = new float*[N];
+                            for (size_t i = 0; i < N; ++i) { A[i]=new float[N](0.f); }
+                            A[i][j]=1.f;
+                        </code></pre>
+                    </div>
+                    <div style="width: 50%; padding: 10px;">
+                        последовательная аллокация памяти
+                        <pre><code data-trim data-noescape class="cpp">
+                            float* A = new float[N * N](0.f);
+                            A[i*N+j]=1.f;
+                        </code></pre>
+                    </div>
+                </div>
+                <div class="fragment">
+                    <img src="assets/cpu-cache.png" alt="График сравнения скорости"
+                        style="width: 55%;display: block; margin: auto;">
+                </div>
+                <div class="fragment" style="text-align: left">
+                    <ul>
+                        <li>Когда процессор запрашивает один байт данных, загружается вся кэш-линия</li>
+                        <li>Локальность данных увеличивает cache hit</li>
+                        <li>Неудачное расположение данных приводит к cache miss</li>
+                        <li>Эффективная алгоритм должен учитывать размеры кэшей</li>
+                    </ul>
+                    <!-- <p>
+                        C++ широко применяется в БД, движках, ИИ...
+                    </p> -->
+                </div>
+            </section>
+
+            <section class="text-xl">
+                <h3>Информация о кэшах</h3>
+                <ul>
+                    <li><strong>Windows</strong> — Ctrl+Shift+Esc</li>
+                    <li><strong>Linux</strong> — <code>lscpu | grep cache</code> или
+                        <code>getconf -a | grep CACHE</code>
+                    </li>
+                </ul>
+                <br>
+                <br>
+                <br>
+                Intel(R) Core(TM) i5-9300HF @ 2.40GHz
+                <pre><code data-trim data-noescape class="cpp">
+                    L1d cache: 128 KiB (4 instances)
+                    L1i cache: 128 KiB (4 instances)
+                    L2 cache: 1 MiB (4 instances)
+                    L3 cache: 8 MiB (1 instance)
+                </code></pre>
+                <pre><code data-trim data-noescape class="cpp">
+                    LEVEL1_ICACHE_LINESIZE 64
+                    LEVEL2_DCACHE_LINESIZE 64
+                    LEVEL3_DCACHE_LINESIZE 64
+                </code></pre>
+                <!-- <div class="fragment">
+                    <h3>Вопросы</h3>
+                    <ul class>
+                        <li>Есть ли разница --- перемножать $A \cdot B$ или $A \cdot B^T$?</li>
+                        <li><strong>-fsanitize=address</strong> — умеет ловить использование освобожденной памяти,
+                            переполнения и утечки.
+                        </li>
+                    </ul>
+                </div> -->
+
+            </section>
+
+            <section class="text-xl">
+                <h3>библиотеки BLAS (Basic Linear Algebra Subprograms)</h3>
+                <div style="text-align: left">
+                    <ul>
+                        <li><strong>Intel MKL</strong> — для Intel CPU</li>
+                        <li><strong>Accelerate</strong> — для Apple CPU</li>
+                        <li><strong>BLIS, GotoBLAS, OpenBLAS</strong> — opensource, multi-vendor CPU</li>
+                        <li><strong>cuBLAS</strong> — для NVIDIA GPU</li>
+                    </ul>
+                </div>
+
+                <br>
+                <br style="line-height:3;">
+                <div align="left">
+                    <b>Уровень 1</b> содержит векторные операции вида:
+                    \[\boldsymbol{y} \leftarrow \alpha \boldsymbol{x} + \boldsymbol{y}.\]
+                    <b>Уровень 2</b> содержит операции матрица-вектор вида:
+                    \[\boldsymbol{y} \leftarrow \alpha A \boldsymbol{x} + \beta \boldsymbol{y}.\]
+                    <b>Уровень 3</b> содержит операции матрица-матрица вида:
+                    \[C \leftarrow \alpha A B + \beta C.\]
+                </div>
+            </section>
+
+            <section class="text-xl">
+                <h3>Оптимизируем матмул</h3>
+                <pre><code data-trim data-noescape class="cpp">
+void gemm_v0(int M, int N, int K, const float * A, const float * B, float * C)
+{
+    for (int i = 0; i < M; ++i)
+    {
+        for (int j = 0; j < N; ++j)
+        {
+            C[i*N + j] = 0;
+            for (int k = 0; k < K; ++k)
+                C[i*N + j] += A[i*K + k] * B[k*N + j];
+        }
+    }
+}
+                </code></pre>
+                <p>Есть ли разница — перемножать $A \cdot B$ или $A \cdot B^T$?</p>
+                <div class="fragment">
+                    <pre><code data-trim data-noescape class="cpp">
+                            void gemm_v1(int M, int N, int K, const float * A, const float * B, float * C)
+                            {
+                                for (int i = 0; i < M; ++i)
+                                {
+                                    float * c = C + i * N;
+                                    for (int j = 0; j < N; ++j)
+                                        c[j] = 0;
+                                    for (int k = 0; k < K; ++k)
+                                    {
+                                        const float * b = B + k * N;
+                                        float a = A[i*K + k];
+                                        for (int j = 0; j < N; ++j)
+                                            c[j] += a * b[j];
+                                    }
+                                }
+                            }
+                    </code></pre>
+                    Ускорение в 8 раз (домашнее задание - убедиться в этом)
+                </div>
+
+            </section>
+
+            <section class="text-xl">
+                <h3>Векторизация циклов</h3>
+                <ul class="stages">
+                    <li><strong>MISD</strong> — Multiple Instruction stream, Single Data (конвейер) </li>
+                    <li><strong>SIMD</strong> — Single Instruction Multiple Data</li>
+                    <ul class="stages">
+                        <li><strong>AVX/AVX2/AVX-512</strong> — Advanced Vector Extensions, набор инструкций для x86
+                            Intel/AMD. Отличаются набором команд и размером регистров (128/256/512 бит)</li>
+                        <li><strong>FMA</strong> — Fused Multiply-Add, аналогично</li>
+                    </ul>
+                </ul>
+                <div>
+                    <img src="assets/fmadd.png" alt="График сравнения скорости"
+                        style="width: 30%;display: block; margin: auto;">
+                </div>
+                <br>
+                <br>
+                <code>#include &lt;immintrin.h&gt;</code>
+                <div class="fragment">
+                    Хорошая новость — компиляторы векторизуют код автоматически при возможности
+                </div>
+            </section>
+
+
+            <section class="text-xl">
+                <h3>Увеличение числа чтений из регистров</h3>
+                <img src="assets/matmul_kernel.png" style="width: 45vw; display: block; margin: auto;">
+                <img src="assets/kernel_rank.png" style="width: 45vw; display: block; margin: auto;">
+                <br>
+                Количество чтений уменьшилось с $2 K m_R n_R$ до $(m_R+n_R)K+m_Rn_R$
+            </section>
+
+
+
+            <section class="text-xl">
+                <div class="text-xl-content">
+                    <style>
+                        .text-xl-content li {
+                            padding: 5px;
+                        }
+                    </style>
+                    <div>
+                        <h3>Полезные источники</h3>
+                        <ul class="stages">
+                            <li><a href='https://en.cppreference.com/w/'>cppreference.com</a></li>
+                            <li><a href='https://habr.com/ru/articles/359272/'>Умножение матриц: эффективная реализация
+                                    шаг за
+                                    шагом</a></li>
+                            <li><a href='https://salykova.github.io/matmul-cpu'>Beating OpenBLAS in FP32 Matrix
+                                    Multiplication</a></li>
+                            <li><a href='https://godbolt.org/'>godbolt.org</a></li>
+                            <li><a href='https://cppinsights.io/'>cppinsights.io</a></li>
+                        </ul>
+                    </div>
+                </div>
             </section>
 
             <section data-background-color="var(--r-main-color)">
@@ -104,6 +393,278 @@
                 </div>
             </section>
 
+            <section class="text-xl">
+                <h3>Как можно ускорить имеющуюся программу?</h3>
+                <ul>
+                    <li><strong>Закон Мура (1965) </strong> — количество транзисторов, размещаемых на кристалле
+                        интегральной схемы, удваивается каждые 24 месяца</li>
+                    <li><strong>Закон масштабирования Деннарда (1974) </strong> — уменьшая размеры транзистора и повышая
+                        тактовую частоту процессора, возможно пропорционально повышать производительность
+                    </li>
+                    <div class="fragment">
+                        <p>С 2006~2007 года закон масштабирования Деннарда перестал выполняться</p>
+                        <ul>
+                            <li>Размер современных транзисторов достиг физических ограничений</li>
+                            <li>Увеличение тактовой частоты приводит к большому тепловыделению</li>
+                        </ul>
+                    </div>
+                </ul>
+                <br>
+                <br>
+                <div class="fragment" style="text-align: left">Закон Мура продолжает работать</div>
+            </section>
+
+            <section class="text-xl">
+                <h3>Выход — многоядерные процессоры и параллельное программирование</h3>
+                <div class="fragment">
+                    <h1>☠️</h1>
+                </div>
+            </section>
+
+            <section class="text-xl">
+                <div>
+                    <h3>Concurrency vs. Parallelism</h3>
+                    <img src="assets/concurrency.png" style="width: 30vw; display: block; margin: auto;">
+                    <div align="left">
+                        <p><b>Конкурентность:</b></p>
+                        <p>
+                        <ul class="stages">
+                            <li>Операционная система</li>
+                            <li>Python GIL (Global Interpreter Lock)</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <section class="text-xl">
+                <h3>std::thread (С++11)</h3>
+            </section>
+
+            <section class="text-xl">
+                <h3>OPENMP (Open Multi-Processing)</h3>
+                <ul class="stages">
+                    <li>Открытый стандарт для распараллеливания программ на языках C/C++/Fortran</li>
+                    <li>Высокоуровневая надстройка над pthreads</li>
+                    <li>Ведущий
+                        поток создаёт набор
+                        ведомых потоков, и задача распределяется между ними</li>
+                    <li>Модель общей памяти</li>
+                    <li><code>#pragma omp directive-name [опция[[,] опция]...]</code></li>
+                    <li>
+                        <pre><code data-trim data-noescape class="cpp">
+#pragma omp parallel for if(N>100) numthreads(3) shared(a, b, c) private(i)
+   for (i = 0; i &lt; N; i++)
+     c[i] = a[i] + b[i];
+    </code></pre>
+                    </li>
+                    <li>Пример компиляции: </li>
+                    <ul class="stages">
+                        <li><code>g++ -O2 --std=c++20 -o test -fopenmp main.cpp</code></li>
+                        <li><code>icc -O2 --std=c++20 -o test -openmp main.cpp</code></li>
+                    </ul>
+                </ul>
+                <br>
+                <br>
+                <div class="fragment">
+                    Может ли реализация для трех нитей дать ускорее более чем в 3 раза?
+                </div>
+                <div class="fragment">
+                    Фактически да, сверхлинейность из-за более эффективного использования кэшей
+                </div>
+            </section>
+
+            <section class="text-xl">
+                <h3>MPI (Message Passing Interface)</h3>
+            </section>
+
+            <section class="text-xl">
+                <h3>CUDA</h3>
+            </section>
+            <section class="text-xl">
+                <h3>История CUDA (Compute Unified Device Architecture)</h3>
+                <ul>
+                    <li>1999 - первая GPU GeForce 256 для обработки графики</li>
+                    <ul>
+                        <li>Большое количество пикселей/вершин/текстур/освещения</li>
+                    </ul>
+                    <li>2007 - CUDA для GPGPU (General-purpose
+                        computing for graphics processing units)</li>
+                    <ul>
+                        <li>Архитектура хорошо подходит для задач с большим уровнем параллелизма по данным</li>
+                    </ul>
+                </ul>
+                <br>
+                <br>
+                <img src="assets/gpu-cpu-difference.png" style="width: 50vw; display: block; margin: auto;">
+                24 ядра &lt; 10000 ядер?
+            </section>
+            <section class="text-xl">
+                <h3>Ключевые понятия</h3>
+                <ul>
+                    <li><strong>Host</strong> - CPU</li>
+                    <li><strong>Device</strong> - GPU</li>
+                    <li><strong>Kernel</strong> - функция, исполняемая на GPU</li>
+                </ul>
+                <br>
+                <br>
+                <img src="assets/grid-of-thread-blocks.png" style="width: 50vw; display: block; margin: auto;">
+            </section>
+            <section class="text-xl">
+                <h3>Интерфейс</h3>
+                <ul>
+                    <li>Спецификаторы функций</li>
+                    <ul>
+                        <li><strong>__host__</strong> - вызываются с хоста, выполняются на хосте</li>
+                        <li><strong>__global__</strong> - вызываются с хоста, выполняются на устройстве</li>
+                        <li><strong>__device__</strong> – вызываются с устройства, выполняются на устройстве.</li>
+                    </ul>
+                    <li><strong>threadIdx</strong> - индекс текущей нити (3dim)</li>
+                    <li><strong>blockIdx</strong> - индекс текущего блока (3dim)</li>
+                    <li><strong>blockDim</strong> - размеры блока (3dim)</li>
+                    <li><strong>gridDim</strong> - размеры сетки (3dim)</li>
+                    <li><strong><code>myKernelFunc&lt;&lt;&lt;gridSize, blockSize&gt;&gt;&gt;(float *param1,
+                    int *param2)</code></strong> - вызов кернела</li>
+                </ul>
+            </section>
+
+            <section class="text-xl">
+                <h3>Пример</h3>
+                <pre><code data-trim data-noescape class="cpp">
+// ядро 
+__global__ void add( int *a, int *b, int *c ) { 
+    *c = *a + *b; 
+} 
+...
+// переменные на CPU 
+int a, b, c;   
+// переменные на GPU 
+int *dev_a, *dev_b, *dev_c;     
+int size = sizeof( int );      //размерность 
+// выделяем память на GPU 
+cudaMalloc( (void**)&dev_a, size ); 
+cudaMalloc( (void**)&dev_b, size ); 
+cudaMalloc( (void**)&dev_c, size ); 
+// инициализация переменных 
+a = 2; 
+b = 7; 
+// копирование информации с CPU на GPU 
+cudaMemcpy( dev_a, &a, size, cudaMemcpyHostToDevice ); 
+cudaMemcpy( dev_b, &b, size, cudaMemcpyHostToDevice ); 
+// вызов ядра 
+add&lt;&lt;&lt; 1, 1 &gt;&gt;&gt;( dev_a, dev_b, dev_c ); 
+// копирование результата работы ядра с GPU на CPU 
+cudaMemcpy( &c, dev_c, size, cudaMemcpyDeviceToHost );  
+// вывод информации 
+printf("%d + %d = %d\n", a, b, c); 
+// очищение памяти на GPU 
+cudaFree( dev_a ); 
+cudaFree( dev_b ); 
+cudaFree( dev_c ); 
+</code></pre>
+            </section>
+
+            <section class="text-xl">
+                <h3>Архитектура GPU</h3>
+                <img src="assets/gpu-insight.png" style="width: 42vw; display: block; margin: auto;">
+                <ul>
+                    <li>Регистры и разделяемая память - быстрые.</li>
+                    <li>Глобальная, константная, текстурная - медленные</li>
+                    <li>Регистры, локальная память - свои для каждой нити</li>
+                    <li>Разделяемая - общая память на блок</li>
+                    <li>Если данные не попадают в регистр, то используется локальная память, а она медленная, по
+                        физическому расположению и скорости доступа близка к глобальной</li>
+                </ul>
+            </section>
+
+            <section class="text-xl">
+                <h3>Синхронизация потоков GPU</h3>
+                <ul>
+                    <li>Нити разных блоков взаимодействовать между собой не могут</li>
+                    <li>Нити одного блока могут взаимодействовать через разделяемую <code>__shared__</code> память</li>
+                    <li><code>__syncthreads()</code> - потоки
+                        приостанавливаются до того момента, пока все потоки не достигнут этой точки</li>
+                    <li><strong>Warp</strong> - группировка потоков по 32 штуки</li>
+                    <li>В каждый момент времени все ядра одного SM исполняют строго один варп</li>
+                </ul>
+            </section>
+            <section class="text-xl">
+                <h3>Оптимизация матмула</h3>
+                <pre><code data-trim data-noescape class="cpp">
+__global__ void matrixMult(const BASE_TYPE *A, const BASE_TYPE *B, BASE_TYPE *C, int Acols, int Bcols)  
+{ 
+    int i0 = Acols * (blockDim.y * blockIdx.y + 
+    threadIdx.y); 
+    int j0 = blockDim.x * blockIdx.x + threadIdx.x; 
+    BASE_TYPE sum = 0; 
+    for (int k = 0; k < Acols; k++) 
+        sum += A[i0 + k] * B[k * Bcols + j0]; 
+    int ind = Bcols * (blockDim.y * blockIdx.y + 
+    threadIdx.y) + blockDim.x * blockIdx.x + threadIdx.x; 
+    C[ind] = sum; 
+}  
+                </code></pre>
+                <ul>
+                    <li> Большую часть времени работы программы
+                        занимает доступ к глобальной памяти, а не вычисления</li>
+                    <li>Суть оптимизаций - такая же, локализация данных, в данном случае через shared память</li>
+                </ul>
+                <br>
+                <br>
+                <img src="assets/tiled-mm.jpg" style="width: 15vw; display: block; margin: auto;">
+                <br>
+                <br>
+                $2N$ -> $2N/$blocksize
+            </section>
+            <section class="text-xl">
+                <h3>Вопросы</h3>
+                <ul>
+                    <li>Какое максимально возможное ускорение на GPU?</li>
+                    <span class="fragment">Количество мультипроцессоров * 32</span>
+                    <li>Как выбрать размер блока для кернела?</li>
+                    <span class="fragment">Есть известные строгие ограничения, а оптимальный размер
+                        зачастую
+                        определяется бенчмарками</span>
+                    <li>Как влияет тип данных double/float на скорость работы?</li>
+                    <span class="fragment">В регистр на место одного double влезает 2
+                        float</span>
+                </ul>
+            </section>
+
+            <section class="text-xl">
+                <h3>Гетерогенные системы</h3>
+                <img src="assets/heterogeneity.png" style="width: 50vw; display: block; margin: auto;">
+                <br>
+                <br>
+                <p>Пример State-of-the-art комбинации CPU/GPU в LLM: Powerinfer</p>
+            </section>
+
+            <section class="text-xl">
+                <div class="text-xl-content">
+                    <style>
+                        .text-xl-content li {
+                            padding: 5px;
+                        }
+                    </style>
+                    <div>
+                        <h3>Полезные источники</h3>
+                        <ul class="stages">
+                            <li><a href='https://parallel.ru/sites/default/files/info/parallel/openmp/OpenMP.pdf'>OpenMP
+                                    учебник</a>
+                            </li>
+                            <li><a
+                                    href='https://kpfu.ru/staff_files/F1113663154/Tumakov___Tekhnologiya_programmirovaniya_CUDA.pdf'>CUDA
+                                    учебник</a></li>
+                            <li><a href='https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html'>CUDA
+                                    гайд</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="text-xl">
+                <h2>Спасибо за внимание!</h2>
+            </section>
 
             <section>
                 <div style="text-align: center; margin-top: 50px;">
