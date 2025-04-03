@@ -48,9 +48,10 @@
                     </div>
 
                     <div class="flex items-center">
-                        <h6 class="text-sm"><a href="https://t.me/Harper567">Эльвира Гизатулина</a></h6>
+                        <h6 class="text-sm"><a href="https://t.me/Harper567">Эльвира Гизатуллина</a></h6>
                     </div>
                 </div>
+
                 <div class="flex items-center justify-center space-x-3" style="margin-top: 10px;">
                     <div class="daisy avatar">
                         <div class="w-5 rounded-full">
@@ -62,6 +63,7 @@
                         <h6 class="text-sm"><a href="https://t.me/GoshaSerbin">Георгий Сербин</a></h6>
                     </div>
                 </div>
+
                 <div class="flex items-center justify-center space-x-3" style="margin-top: 10px;">
                     <div class="daisy avatar">
                         <div class="w-5 rounded-full">
@@ -85,7 +87,7 @@
                         <li class="step step-secondary">
                             <span style="position: relative; left: -50%;">Блок 1</span>
                         </li>
-                        <li class="step step-accent"><span class="step-icon">🫠</span></li>
+                        <li class="step step-accent"><span class="step-icon">🫠</span>
                         <li class="step step-accent">Блок 2</li>
                         <li class="step step-accent"></li>
                         <li class="step step-neutral"></li>
@@ -102,8 +104,234 @@
             <section class="text-xl">
                 <h5 class="font-bold mb-0">Содержание</h5>
                 <ul>
-                    <li>?</li>
+                    <li>Задача классификации и нейронные сети</li>
+                    <li>Специальные слои в линейных слоях</li>
+                    <li>Как создавать нейронные сети?</li>
                 </ul>
+            </section>
+
+            <section class="text-xl">
+                <h3>Что такое классификация</h3>
+                <div class="fragment">
+                    <img src="assets/lec_3/class.png" style="width: 50%;display: block; margin: auto;">
+                </div>
+            </section>
+
+            <section class="text-xl">
+                <h3>Представление входных данных</h3>
+                <img src="assets/lec_3/tensor.png" style="width: 100%;display: block; margin: auto;">
+                <br>
+            </section>
+
+            <section class="text-xl">
+                <h3>Сложный случай</h3>
+                <br>
+                <div style="display: flex;">
+                    <div class="fragment">
+                        <img src="assets/lec_3/nonlinear.png" style="width: 150%;display: block; margin: auto;">
+                    </div>
+
+                    <div class="fragment">
+                        <img src="assets/lec_3/xor1.png" style="width: 90%;display: block; margin: auto;">
+                    </div>
+                </div>
+                <p><a href='https://playground.tensorflow.org/'>playground</a></p>
+            </section>
+
+            <section class="text-xl">
+                <h3>Биологический нейрон и модель искусственного нейрона. Перцептрон (Ф. Розенблатт 1960)</h3>
+                <img src="assets/lec_3/nnn_an.jpg" style="width: 120%;display: block; margin: auto;">
+                <div class="fragment">
+                    Зачем нам нужно нелинейное пробрезование?
+                </div>
+            </section>
+
+            <section class="text-xl">
+                <h3>Сеть с одним скрытым слоем</h3>
+                <b>Теорема Цыбенко (1989). 
+                    Универсальная теорема аппроксимации.</b>
+                Любую непрерывную на компакте функцию можно равномерно приблизить 
+                нейронной сетью с одним скрытым слоем.
+
+
+                <img src="assets/lec_3/hidden_layer.png" style="width: 70%;display: block; margin: auto;">
+
+
+                <p><a href='https://neuralnetworksanddeeplearning.com/chap4.html'>Визуализация</a></p>
+            </section>
+
+            <section class="text-xl">
+                <h3>Нелинейная классификация и MLP</h3>
+                <h3>Функции активаций</h3>
+                <img src="assets/lec_3/sigmoid.png" style="width: 70%;display: block; margin: auto;">
+                <img src="assets/lec_3/relu.png" style="width: 70%;display: block; margin: auto;">
+            </section>
+
+
+            <section class="text-xl">
+                <h3>Глубокое обучение</h3>
+                <img src="assets/lec_3/ResNet_Model.png" style="width: 150%;display: block; margin: auto;">
+
+
+            </section>
+
+            <section class="text-xl">
+                <h3>Специальные слои в линейных слоях</h3>
+                <ul>
+                    <li>Полносвязный слой (Fully Connected Layer, или Dense Layer)</li>
+                    <li>Свёрточный слой (Convolution Layer)</li>
+                    <li>Рекуррентный слой(RNN)</li>
+                    <li>Нормализующий слой (Normalization Layer)</li>
+                    <li>Слой подвыборки (Pooling Layer)</li>
+                    <li>Слой внимания (Attention Layer)</li>
+
+                </ul>
+            </section>
+
+            <section class="text-xl">
+                <h3>Свёртки</h3>
+                <img src="assets/lec_3/conv.png" style="width: 70%;display: block; margin: auto;">
+            </section>
+
+            <section class="text-xl">
+                <h3>Определение свёртки</h3>
+                <img src="assets/lec_3/convolve.png" style="width: 70%;display: block; margin: auto;">
+                Для изображения I и ядра K размером m * n:
+                <p>
+                    $$
+                    I * K (x, y) = \sum_{i=0}^{m-1} \sum_{j=0}^{n-1}I(x+i, y+j) \cdot K(i,j)
+                    $$
+                </p>
+                Общая формула размера карты активации такая:
+                m=i−f+1, 
+                где:
+                m — размер карты активации;
+                i — размер изображения;
+                f — размер фильтра.
+            </section>
+
+            <section class="text-xl">
+                <h3>Свёртки</h3>
+                    <img src="assets/lec_3/conv_1.png" style="width: 100%;display: block; margin: auto;">
+
+                    <p><a href='https://learnopencv.com/understanding-convolutional-neural-networks-cnn/'>learnopencv.com</a></p>
+                    <p><a href='https://hannibunny.github.io/mlbook/neuralnetworks/03ConvolutionNeuralNetworks.html'>hannibunny.github.io</a></p>
+            </section>
+
+            <section data-background-color="var(--r-main-color)">
+                <div style="color: white; text-align: center;">
+                    <span class="loading loading-ring loading-xl"></span>
+                    <br>
+                    <span>Перерыв</span>
+                </div>
+            </section>
+
+            <section class="text-xl">
+                <h3>Полносвязная сеть для работы с изображениями.</h3>
+                    <img src="assets/lec_3/ffn_image.png" style="width: 100%;display: block; margin: auto;">
+                <h3>Недостатки</h3>
+                <ul>
+                    <li>Количество параметров</li>
+                    <li>Структура данных никак не учитывается. Принцип локальности объектов.</li>
+                </ul>
+
+            </section>
+            
+
+            <section class="text-xl">
+                <h3>Смысл операции свертки</h3>
+                <img src="assets/lec_3/filtr_v.png" style="width: 70%;display: block; margin: auto;">
+                <img src="assets/lec_3/filtr_h.png" style="width: 70%;display: block; margin: auto;">
+            </section>
+
+            <section class="text-xl">
+                <h3>Смысл в нескольких слоях сверток</h3>
+                <img src="assets/lec_3/cat.png" style="width: 100%;display: block; margin: auto;">
+            </section>
+
+
+            <section class="text-xl">
+                <h3>Свертка Винограда</h3>
+                <img src="assets/lec_3/w_conv.png" style="width: 90%;display: block; margin: auto;">
+                <p><a href='https://cse.hkust.edu.hk/~weiwa/papers/yan-ppopp20.pdf'>Winograd Convolution</a></p>
+
+            </section>
+
+
+
+            <section class="text-xl">
+                <h3>Другие виды сверток</h3>
+                <ul>
+                    <li>Свертки с изменяемым размером (Dilated Convolutions)</li>
+                    <li>Групповые свертки (Grouped Convolutions)</li>
+                    <li>Трансформерные свертки (Attention-based Convolutions)</li>
+                </ul>
+
+
+            </section>
+
+            
+
+            <section class="text-xl">
+                <h3>Как создавать нейронные сети?</h3>
+            </section>
+
+            <section class="text-xl">
+                <h3>Задача, данные, функция потерь</h3>
+            </section>
+
+            <section class="text-xl">
+                <h3> Решение задачи через оптимизацию </h3>
+
+                <br>
+                <div style="display: flex;">
+                    <img src="assets/lec_3/gr_boost.png" style="width: 100%;display: block; margin: auto;">
+                    <img src="assets/lec_3/gr_boost_1.png" style="width: 90%;display: block; margin: auto;">
+                </div>
+
+
+            </section>
+
+            <section class="text-xl">
+                <h3>Вычисление градиента</h3>
+                    <img src="assets/lec_3/f_pass.png" style="width: 42vw; display: block; margin: auto;">
+            </section>
+
+            <section class="text-xl">
+                <h3>Алгоритм обратного распространения ошибки (backward propagation)</h3>
+                
+                <img src="assets/lec_3/mem.png" style="width: 42vw; display: block; margin: auto;">
+            </section>
+
+            <section class="text-xl">
+                <h3>Алгоритм обратного распространения ошибки (backward propagation)</h3>
+
+                <img src="assets/lec_3/b_pass.png" style="width: 42vw; display: block; margin: auto;">
+            </section>
+
+            <section class="text-xl">
+                <h3>Стохастический градиентный спуск (Stochastic gradient descent, SGD)</h3>
+            </section>
+
+            
+            <section class="text-xl">
+                <div class="text-xl-content">
+                    <style>
+                        .text-xl-content li {
+                            padding: 5px;
+                        }
+                    </style>
+                    <div>
+                        <h3>Полезные источники</h3>
+                        <ul class="stages">
+                            <li><a href='https://education.yandex.ru/handbook/ml'>Учебник по машинному обучению</a>
+                            </li>
+                            <li><a href='https://youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi'>3Blue1Brown - Neural Networks (YouTube)</a></li>
+                            <li><a href='https://neuralnetworksanddeeplearning.com'>Neural Networks and Deep Learning (book by Michael Nielsen)</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </section>
 
             <section>
