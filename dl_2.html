@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Efficient AI</title>
+    <meta name="author" content="Constantine Korikov">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="stylesheet" href="sys/daisyui@5.css">
+    <link rel="stylesheet" href="sys/reveal.min.css">
+    <link rel="stylesheet" href="sys/white.css">
+    <link rel="stylesheet" href="sys/monokai.css">
+    <link rel="stylesheet" href="sys/IBM+Plex+Mono.css">
+    <link rel="stylesheet" href="sys/main.css">
+
+</head>
+
+<body>
+
+    <div class="reveal">
+
+        <div class="slides">
+
+            <section>
+                <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <img src="assets/huawei.svg" alt="logo"
+                            style="height: 50px; margin-right: 1rem; background: transparent;" class="demo-logo">
+                        <div style="border-left: 1px solid #000; height: 50px; margin-right: 1rem;"></div>
+                        <img src="assets/mipt.svg" alt="logo" style="height: 20px; background: transparent;"
+                            class="demo-logo">
+                    </div>
+
+                    <h3 class="text-xl font-bold mb-0" style="margin-bottom: 0;">Efficient AI</h3>
+                    <h5 class="text-sm text-gray-600 mt-0" style="margin-top: 0;">Блок 2. Нейронные сети.
+                        Inference Engine и проект</h5>
+                </div>
+
+                <div class="flex items-center justify-center space-x-3" style="margin-top: 50px;">
+                    <div class="daisy avatar">
+                        <div class="w-5 rounded-full">
+                            <a href="https://t.me/GoshaSerbin"><img src="assets/gs.jpg" /></a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center">
+                        <h6 class="text-sm"><a href="https://t.me/GoshaSerbin">Георгий Сербин</a></h6>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center space-x-3" style="margin-top: 10px;">
+                    <div class="daisy avatar">
+                        <div class="w-5 rounded-full">
+                            <a href="https://www.linkedin.com/in/ckorikov/"><img src="assets/ck.jpeg" /></a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center">
+                        <h6 class="text-sm"><a href="https://www.linkedin.com/in/ckorikov/">Константин Кориков</a></h6>
+                    </div>
+                </div>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="text-xl font-bold mb-0">Где мы?</h5>
+
+                <div class="daisy overflow-x-auto text-sm">
+                    <ul class="steps">
+                        <li class="step"><span class="step-icon">📍</span>Вводная</li>
+                        <li class="step step-secondary"></li>
+                        <li class="step step-secondary">
+                            <span style="position: relative; left: -50%;">Блок 1</span>
+                        </li>
+                        <li class="step step-accent"></li>
+                        <li class="step step-accent"><span class="step-icon">🫠</span>Блок 2</li>
+                        <li class="step step-accent"></li>
+                        <li class="step step-neutral"></li>
+                        <li class="step step-error"><span class="step-icon">🏝️</span>1 мая</li>
+                        <li class="step step-error"><span class="step-icon">🌹</span>9 мая</li>
+                        <li class="step step-neutral">Блок 3</li>
+                        <li class="step"><span class="step-icon">👨‍💻</span></li>
+                        <li class="step"><span class="step-icon">👨‍💻</span></li>
+                        <li class="step"><span class="step-icon">☠️</span>Экзамен</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="text-xl">
+                <h5 class="font-bold mb-0">Содержание</h5>
+                <ul>
+                    <li>Квиз</li>
+                    <li>Разбор библиотек для инференса</li>
+                    <li>Рекомендации при разработке</li>
+                    <li>Обзор Inference Engine</li>
+                </ul>
+            </section>
+            <section class="text-xl">
+                <h3>Квиз</h3>
+            </section>
+
+            <section class="text-xl">
+                <p>Алгоритмическая сложность алгоритма Штрассена</p>
+                <ol>
+                    <li>$O(n^3)$</li>
+                    <li>$O(n^{2.81})$</li>
+                    <li>$O(n^{2.38})$</li>
+                    <li>$O(n^2)$</li>
+                </ol>
+            </section>
+
+            <section class="text-xl">
+                <p>Можно ли хранить веса модели Llama-3 на стеке?</p>
+                <ol>
+                    <li>Да</li>
+                    <li>Да, но только квантованные</li>
+                    <li>Нет</li>
+                </ol>
+            </section>
+
+            <section class="text-xl">
+                <p>Можно ли разделить данные множества линейной моделью?</p>
+                <img src="assets/lec_4/circles.jpg" style="width: 30%;display: block; margin: auto;">
+                <br>
+                <br>
+                <div class="fragment">
+                    $x_1=r$, $x_2=\phi$
+                    <p>🤡</p>
+                </div>
+            </section>
+
+            <section class="text-xl">
+                Что утверждает универсальная теорема об аппроксимации?
+                <div class="fragment">
+                    Зачем нужен DL?
+                </div>
+            </section>
+
+
+            <section class="text-xl">
+                Зачем нужен обратный ход при оптимизации параметров нейронной сети?
+                <div class="fragment">
+                    Можно ли обойтись без него?
+                </div>
+                <div class="fragment" align="left">
+                    Есть два альтернативных подхода — forward и reverse mode.
+                    <div style="display: flex; align-items: center; justify-content: center;">
+                        <div style="width: 36%; text-align: center;">
+                            <img src="assets/lec_4/graph.jpg" style="max-width: 100%; height: auto;">
+                        </div>
+                        <div style="width: 55%; padding-left: 20px;">
+                            <p>\[ f(y, \sigma, \mu) = - \frac{1}{2} \left( \frac{y - \mu}{\sigma} \right)^2 - \log
+                                (\sigma)
+                                - \frac{1}{2} \log
+                                (2\pi)
+                                \]</p>
+                            <p>\[J_{ij} = \frac{\partial f_i}{\partial x_j}\]</p>
+                            <br>
+                            <p>Для экономии памяти используют чекпойнты</p>
+                            <div style="width: 47%;">
+                                <img src="assets/lec_4/checkpointings.jpg" style="max-width: 100%; height: auto;">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <a href="https://arxiv.org/pdf/1811.05031">Статья</a> — A Review of Automatic Differentiation
+                    and its Efficient Implementation
+                </div>
+
+            </section>
+
+
+
+
+            <section class="text-xl">
+                <h3>Оптимизации нейросетей</h3>
+                <p>По каким критериям оценивать качество оптимизации нейросети?</p>
+                <ul>
+                    <li class=" fragment">Время различных стадий работы нейросети (prefill, decoding,...)</li>
+                    <li class="fragment">Потребление памяти (пиковое, среднее, ...)</li>
+                    <li class="fragment">Качество модели (бенчмарки)</li>
+                </ul>
+                <p class="fragment">Что ценится?</p>
+                <ul>
+                    <li class="fragment">Простота реализации (training-free, ...)</li>
+                    <li class="fragment">Универсальность (работает для любых моделей, любого бэкенда)</li>
+                </ul>
+            </section>
+
+            <section class="text-xl">
+                <h3>Разбор библиотек для инференса</h3>
+            </section>
+
+            <section class="text-xl">
+                <h3>Eigen</h3>
+                <p align="left"><a href='https://gitlab.com/libeigen/eigen'>Eigen</a> — библиотека линейной алгебры для
+                    C++ с
+                    открытым исходным кодом</p>
+                <div style="text-align: left">
+                    <h4>Динамический vs статический полиморфизм</h4>
+                    <ul>
+                        <li><strong>Полиморфизм</strong> — концепция "один интерфейс — множество реализаций" </li>
+                        <li>Динамический реализуется через наследование и виртуальные методы, работает с помощью
+                            виртуальной таблицы</li>
+                        <li>Статический реализуется через шаблоны</a></li>
+                    </ul>
+                </div>
+
+                <br>
+                <br>
+                <div class="fragment" style="text-align: left">
+                    <h4>Особенности шаблонов в C++</h4>
+                    <ul>
+                        <li class>Тьюринг полные 😱</li>
+                        <li class>Перенос части вычислений в compile time 🚀</li>
+                        <li class>Дополнительные проверки во время компиляции 🔎</li>
+                        <li class>Никто не поймет ваш код 💀</li>
+                    </ul>
+                    <div align="left"> <a href="https://habr.com/ru/articles/218229/">Статья</a> —
+                        "игра в
+                        жизнь" на
+                        шаблонах
+                    </div>
+                </div>
+
+            </section>
+
+
+            <section class="text-xl">
+                <h3>Рекомендации</h3>
+                <div align="left">
+                    <ul>
+                        <li>Форматтеры и анализаторы кода (clang-format, clang-tidy)</li>
+                        <li>Система сборки (<a href="https://cmake.org/">CMake</a>)</li>
+                        <li><a href="https://google.github.io/googletest/primer.html">Тестирование</a> (unit-тесты,
+                            интеграционные тесты, <a href="https://gcovr.com/en/5.0/guide.html">покрытие тестами</a>)
+                        </li>
+
+
+                        <li><a href="https://github.com/resources/articles/devops/ci-cd?">CI/CD</a> (build, test,
+                            deploy)
+                        </li>
+                    </ul>
+                    <br>
+                    <br>
+                    <h4>Примеры успешных библиотек</h4>
+                    <ul>
+                        <li><a href="https://github.com/ggml-org/ggml">ggml</a></li>
+                        <li><a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a></li>
+                        <li><a href="https://github.com/pytorch/pytorch">pytorch</a></li>
+                    </ul>
+
+                </div>
+
+            </section>
+
+            <section class="text-xl">
+                <h3>Практика</h3>
+            </section>
+
+            <section class="text-xl">
+                <h3>Проект</h3>
+                <ul>
+                    <li>Сделать форк репозитория</li>
+                    <li>Добавить фичу (2 части: функциональный код + оптимизация)</li>
+                    <li>Убедиться в корректности работы</li>
+                    <li>Замерить скорость</li>
+                    <li>Сделать пул-реквест</li>
+                    <li>Альтернативно можно добавлять фичи другого типа (рефакторинг и т.д.)</li>
+                    <li>Пул-реквест лучше сделать заранее после написания функционального кода</li>
+                </ul>
+            </section>
+
+            <section>
+                <div style="text-align: center; margin-top: 50px;">
+                    <h6 class="text-sm">
+                        <a href="mailto:constantine.korikov@gmail.com"
+                            style="color: var(--link-color); text-decoration: none;">
+                            constantine.korikov@gmail.com
+                        </a>
+                    </h6>
+                </div>
+            </section>
+
+        </div>
+
+    </div>
+
+    <script src="sys/reveal.js"></script>
+    <script src="sys/plugin/math.js"></script>
+    <script src="sys/plugin/markdown.js"></script>
+    <script src="sys/plugin/highlight.js"></script>
+    <script src="sys/plugin/search.js"></script>
+    <script src="sys/plugin/zoom.js"></script>
+    <script src="sys/browser@4.js"></script>
+    <script src="sys/rough.min.js"></script>
+    <script src="sys/main.js"></script>
+
+</body>
+
+</html>
